@@ -1,6 +1,6 @@
-from django.http.response import JsonResponse
 from rest_framework.parsers import JSONParser
-from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.decorators import api_view, parser_classes
 from rest_framework import status
 
 from .models import Post
@@ -8,7 +8,11 @@ from .serializers import PostSerializer
 
 
 @api_view(["GET", "POST", "DELETE"])
+@parser_classes([JSONParser])
 def post_list(request):
+    """
+    Returns a list of all created posts
+    """
     if request.method == "GET":
         posts = Post.objects.all()
         title = request.query_params.get("title", None)
@@ -16,45 +20,46 @@ def post_list(request):
             posts = posts.filter(title__icontains=title)
 
         posts_serializer = PostSerializer(posts, many=True)
-        return JsonResponse(posts_serializer.data, safe=False)
+        return Response(posts_serializer.data, status=status.HTTP_200_OK)
 
     elif request.method == "POST":
-        post_data = JSONParser().parse(request)
+        post_data = request.data
         post_serializer = PostSerializer(data=post_data)
         if post_serializer.is_valid():
             post_serializer.save()
-            return JsonResponse(post_serializer.data, status=status.HTTP_201_CREATED)
-        return JsonResponse(post_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(post_serializer.data, status=status.HTTP_201_CREATED)
+        return Response(post_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == "DELETE":
         total_deleted = Post.objects.all().delete()
-        return JsonResponse(
+        return Response(
             {"message": f"{total_deleted[0]} Posts were deleted successfully!"},
             status.HTTP_204_NO_CONTENT,
         )
 
 
-@api_view(["GET", "PUT"])
+@api_view(["GET", "PUT", "DELETE"])
+@parser_classes([JSONParser])
 def post_detail(request, pk):
     try:
         post = Post.objects.get(pk=pk)
     except Post.DoesNotExist:
-        return JsonResponse(
+        return Response(
             {"message": "The post does not exist"}, status=status.HTTP_404_NOT_FOUND
         )
 
     if request.method == "GET":
         post_serializer = PostSerializer(post)
-        return JsonResponse(post_serializer.data)
+        return Response(post_serializer.data, status=status.HTTP_200_OK)
 
     elif request.method == "PUT":
-        post_data = JSONParser().parse(request)
+        post_data = request.data
         post_serializer = PostSerializer(post_data, data=post_data)
         if post_serializer.is_valid():
             post_serializer.save()
-            return JsonResponse(post_serializer)
-        return JsonResponse(post_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(post_serializer)
+        return Response(post_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == "DELETE":
         post.delete()
-        return JsonResponse({"message": "Post was deleted succesfully"})
+        return Response({"message": "Post was deleted succesfully"})
