@@ -1,1 +1,1 @@
-from .settings import *  # All Django related settings
+from .base import *  # All Django related settings
