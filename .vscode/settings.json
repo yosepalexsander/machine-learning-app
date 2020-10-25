@@ -5,7 +5,7 @@
   "python.linting.enabled": true,
   "python.formatting.provider": "black",
   "python.linting.flake8Args": [
-    "--max-line-length=88"
+    "--max-line-length=110"
   ],
   "editor.formatOnSave": true,
   "python.testing.pytestArgs": [
