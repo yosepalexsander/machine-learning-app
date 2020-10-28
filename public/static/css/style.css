@@ -1,0 +1,15 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+div.nlp_form {
+  width: 80%;
+  float: left;
+}
+
+aside.review_data {
+  float: right;
+  width: 20%;
+}
+

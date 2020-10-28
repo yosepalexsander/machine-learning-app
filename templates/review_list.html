@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{% if sentiments %}
+<ul class="sentiment-list">
+  {% for sentiment in sentiments %}
+  <li>{{ sentiment.review_name }}</li>
+  <li>{{ sentiment.review_text }}</li>
+  <li>{{ sentiment.sentiment }}</li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No Reviews yet!</p>
+{% endif %}
+{% endblock %}
