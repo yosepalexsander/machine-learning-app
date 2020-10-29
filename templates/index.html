@@ -1,6 +1,41 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="Machine learning web app">
+  {% load bootstrap4 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+  <title>{% block title %}Machine Learning Web App{% endblock %}</title>
+</head>
 
-{% block content %}
-<h1>Index !!!</h1>
-{% endblock %}
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Machine Learning App</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" href="/">Home</a>
+        <a class="nav-link" href="/project">Project</a>
+        <a class="nav-link" href="/about">About Me</a>
+      </div>
+    </div>
+  </nav>
+
+  <div id="content" class="container">
+    <!-- content here -->
+    {% block content %}
+    Fallback content
+    {% endblock %}
+
+  </div>
+</body>
+
+</html>

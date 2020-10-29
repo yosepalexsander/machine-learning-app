@@ -7,9 +7,6 @@ root = environ.Path(__file__) - 3
 env = environ.Env()
 environ.Env.read_env(root.file(".env"))
 
-
-SITE_ROOT = root()
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env.str("SECRET_KEY")
 
@@ -58,7 +55,7 @@ REST_FRAMEWORK = {
     ],
 }
 
-ROOT_URLCONF = "ml_web.urls"
+ROOT_URLCONF = "base_site.urls"
 
 TEMPLATES = [
     {
@@ -76,7 +73,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "ml_web.wsgi.application"
+WSGI_APPLICATION = "base_site.wsgi.application"
 
 
 # Database
@@ -126,9 +123,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-public_root = root.path("public/")
-MEDIA_ROOT = public_root("media/")
+PUBLIC_DIR = root.path("public")
+MEDIA_ROOT = PUBLIC_DIR("media")
 MEDIA_URL = env.str("MEDIA_URL", default="media/")
-STATIC_ROOT = public_root("static/")
+STATIC_ROOT = PUBLIC_DIR("static")
 STATIC_URL = env.str("STATIC_URL", default="static/")
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"  # new
+STATICFILES_DIRS = []
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"

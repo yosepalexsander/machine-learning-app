@@ -1,23 +1,48 @@
+from django.shortcuts import redirect, get_object_or_404
 from rest_framework.response import Response
-from rest_framework.parsers import JSONParser
+from rest_framework.parsers import JSONParser, FormParser
+from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.decorators import api_view, parser_classes, renderer_classes
 from rest_framework import status
-from rest_framework.renderers import TemplateHTMLRenderer
-
-# from sklearn.feature_extraction.text import TfidfVectorizer
-
-# Create your views here.
 from .preprocess import predict
 from .models import SentimentReview
 from .serializers import SentimentSerializer
 
-# from .form import ReviewForm
+# Create your views here.
 
 
-@api_view(["GET", "POST", "DELETE"])
-@parser_classes([JSONParser])
+@api_view(["GET", "POST"])
+@parser_classes([FormParser])
 @renderer_classes([TemplateHTMLRenderer])
-def review(request):
+def review_form(request, pk):
+    if request.method == "GET":
+        review = get_object_or_404(SentimentReview, pk=pk)
+        serializer = SentimentSerializer(review)
+        return Response(
+            {"serializer": serializer, "review": review},
+            template_name="nlp__review_form.html",
+        )
+
+    elif request.method == "POST":
+        review = get_object_or_404(SentimentReview, pk=pk)
+        review_data = request.data
+        predicted_sentiment = predict(review_data["review_text"])
+        review_data["sentiment"] = predicted_sentiment
+        print(review_data)
+        sentiment_serializer = SentimentSerializer(review, data=review_data)
+        if not sentiment_serializer.is_valid():
+            return Response(
+                {"serializer": sentiment_serializer, "review": review},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        sentiment_serializer.save()
+        return redirect("/nlp/review-list")
+
+
+@api_view(["GET"])
+@parser_classes([FormParser])
+@renderer_classes([TemplateHTMLRenderer])
+def review_list(request):
     if request.method == "GET":
         reviews = SentimentReview.objects.all()
         name = request.query_params.get("review_name", None)
@@ -27,45 +52,6 @@ def review(request):
         sentiment_serializer = SentimentSerializer(reviews, many=True)
         return Response(
             {"sentiments": sentiment_serializer.data},
-            template_name="nlp_form.html",
+            template_name="nlp__review_list.html",
             status=status.HTTP_200_OK,
         )
-
-    elif request.method == "POST":
-        review_data = request.data
-        predicted_sentiment = predict(review_data["review_text"])
-        review_data["sentiment"] = predicted_sentiment
-        print(review_data)
-        sentiment_serializer = SentimentSerializer(data=review_data)
-        if sentiment_serializer.is_valid():
-            sentiment_serializer.save()
-            return Response(
-                {review_data},
-                template_name="nlp_form.html",
-                status=status.HTTP_201_CREATED,
-            )
-        return Response(
-            {"error": sentiment_serializer.errors},
-            template_name="nlp_form.html",
-            status=status.HTTP_400_BAD_REQUEST,
-        )
-
-    elif request.method == "DELETE":
-        total_deleted = SentimentReview.objects.all().delete()
-        return Response(
-            {"message": f"{total_deleted[0]} Reviews were deleted successfully!"},
-            status.HTTP_204_NO_CONTENT,
-        )
-
-
-# def review_form(request):
-#     form = ReviewForm(request.POST)
-#     if form.is_valid():
-#         review_name = form.cleaned_data['review_name']
-#         review_text = form.cleaned_data['review_text']
-#         result = predict(review_text)
-
-#         messages.succes(request, f"Sentiment for reviews is: {result}")
-#       form = ReviewForm()
-
-#     return Response({'form': form}, template_name="nlp_form.html")
