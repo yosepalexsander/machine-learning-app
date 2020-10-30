@@ -15,13 +15,14 @@ SECRET_KEY = env.str("SECRET_KEY")
 
 DEBUG = env.bool("DEBUG", default=False)
 TEMPLATE_DEBUG = DEBUG
+DEBUG_PROPAGATE_EXCEPTIONS = True
 
 DATABASES = {"default": env.db("DATABASE_URL")}
 
 # Configuration for CORS behavior
 CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS")
 
-ALLOWED_HOSTS = ["localhost", "ml-app1010.herokuapp.com", ".herokuapp.com"]
+ALLOWED_HOSTS = ["ml-app1010.herokuapp.com", ".herokuapp.com"]
 
 # Application definition
 
@@ -132,7 +133,7 @@ MEDIA_URL = "/media/"
 STATIC_ROOT = root("staticfiles")
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [PUBLIC_DIR("static")]
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
 # message tags
 MESSAGE_TAGS = {
