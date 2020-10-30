@@ -15,7 +15,7 @@ TEMPLATE_DEBUG = DEBUG
 
 DATABASES = {"default": env.db("DATABASE_URL")}
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["https://ml-app1010.herokuapp.com/", ".herokuapp.com"]
 
 # Configuration for CORS behavior
 CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS")
@@ -126,9 +126,9 @@ USE_TZ = True
 
 PUBLIC_DIR = root.path("public")
 MEDIA_ROOT = PUBLIC_DIR("media")
-MEDIA_URL = env.str("MEDIA_URL", default="media/")
+MEDIA_URL = "/media/"
 STATIC_ROOT = root("staticfiles")
-STATIC_URL = env.str("STATIC_URL", default="static/")
+STATIC_URL = "/static/"
 STATICFILES_DIRS = [PUBLIC_DIR("static")]
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 

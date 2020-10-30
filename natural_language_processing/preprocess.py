@@ -3,16 +3,14 @@ import re
 import pickle
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.sequence import pad_sequences
-from pathlib import Path
 
 # lemmatizer = WordNetLemmatizer()
 translation_table = dict.fromkeys(map(ord, string.punctuation), " ")
 
 # model file path
 
-BASE_PATH = Path(__file__).resolve().parent
-MODEL_PATH = Path(BASE_PATH, "nlp_model", "sentiment_model.h5")
-TOKENIZER_PATH = Path(BASE_PATH, "nlp_model", "tokenizer.pickle")
+MODEL_PATH = "nlp_model/sentiment_model.h5"
+TOKENIZER_PATH = "nlp_model/tokenizer.pickle"
 
 
 def clean_text(text):
