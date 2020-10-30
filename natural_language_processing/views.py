@@ -32,7 +32,6 @@ def review_form(request):
 
     elif request.method == "POST":
         data = (request.POST).dict()
-        print(data)
         review_text = data["review_text"]
         predict_result, predict_proba = predict(review_text)
         data["sentiment"] = predict_result
