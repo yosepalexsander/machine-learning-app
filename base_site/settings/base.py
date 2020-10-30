@@ -1,4 +1,3 @@
-import os
 import environ
 from pathlib import Path
 from django.contrib.messages import constants as messages
@@ -128,9 +127,9 @@ USE_TZ = True
 PUBLIC_DIR = root.path("public")
 MEDIA_ROOT = PUBLIC_DIR("media")
 MEDIA_URL = env.str("MEDIA_URL", default="media/")
-STATIC_ROOT = PUBLIC_DIR("static")
+STATIC_ROOT = root("staticfiles")
 STATIC_URL = env.str("STATIC_URL", default="static/")
-STATICFILES_DIRS = []
+STATICFILES_DIRS = [PUBLIC_DIR("static")]
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # message tags
