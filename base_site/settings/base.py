@@ -21,7 +21,7 @@ DATABASES = {"default": env.db("DATABASE_URL")}
 # Configuration for CORS behavior
 CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS")
 
-ALLOWED_HOSTS = ["https://ml-app1010.herokuapp.com/", ".herokuapp.com"]
+ALLOWED_HOSTS = ["localhost", "ml-app1010.herokuapp.com", ".herokuapp.com"]
 
 # Application definition
 
