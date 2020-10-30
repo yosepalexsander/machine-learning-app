@@ -4,7 +4,6 @@ from .views import index
 
 urlpatterns = [
     re_path(r"^admin/", admin.site.urls),
-    re_path(r"^blog/", include(("blog.urls", "blog"), namespace="blog")),
     re_path(
         r"^nlp/", include(("natural_language_processing.urls", "nlp"), namespace="nlp")
     ),

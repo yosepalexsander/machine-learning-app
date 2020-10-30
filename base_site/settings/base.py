@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "bootstrap4",
-    "blog",
     "natural_language_processing",
 ]
 
