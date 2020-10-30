@@ -1,0 +1,16 @@
+{% if messages %}
+<!-- <ul class="messages">
+  {% for message in messages %}
+  <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul> -->
+
+<div class="messages" role="alert">
+  {% for message in messages %}
+  <h4 class="alert-heading">{{ message }}</h4>
+  <p{% if message.tags %} class="{{ message.tags }}" {% endif %}>
+    <strong> Sentiment this review: {{ message }}</strong>
+    </p>
+    {% endfor %}
+</div>
+{% endif %}

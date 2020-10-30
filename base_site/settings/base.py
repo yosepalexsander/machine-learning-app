@@ -1,6 +1,7 @@
+import os
 import environ
 from pathlib import Path
-import os
+from django.contrib.messages import constants as messages
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 root = environ.Path(__file__) - 3
@@ -60,7 +61,7 @@ ROOT_URLCONF = "base_site.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [root.path("templates/")],
+        "DIRS": [root.path("templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -130,3 +131,12 @@ STATIC_ROOT = PUBLIC_DIR("static")
 STATIC_URL = env.str("STATIC_URL", default="static/")
 STATICFILES_DIRS = []
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# message tags
+MESSAGE_TAGS = {
+    messages.DEBUG: "alert alert-secondary",
+    messages.INFO: "alert alert-info",
+    messages.SUCCESS: "alert alert-success",
+    messages.WARNING: "alert alert-warning",
+    messages.ERROR: "alert alert-danger",
+}

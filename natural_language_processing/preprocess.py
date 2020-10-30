@@ -52,10 +52,11 @@ def predict(data):
         cleaned_data = clean_text(data)
         sequences = tokenizer.texts_to_sequences([cleaned_data])
         padded_sequences = pad_sequences(sequences)
-        predict_result = (model.predict(padded_sequences) > 0.5).astype("int32")
-        if predict_result == 1:
-            return "Positive"
+        predict_proba = round(model.predict(padded_sequences)[0][0], 3)
+        result = (predict_proba > 0.5).astype("int32")
+        if result == 1:
+            return ("Positive", predict_proba)
         else:
-            return "Negative"
+            return ("Negative", predict_proba)
     except ValueError as e:
         return e.args[0]
