@@ -1,13 +1,10 @@
 import environ
 from pathlib import Path
 from django.contrib.messages import constants as messages
-import django_heroku
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 root = environ.Path(__file__) - 3
 
-# Activate Django-Heroku.
-django_heroku.settings(locals())
 
 # env config for dev.
 env = environ.Env()
