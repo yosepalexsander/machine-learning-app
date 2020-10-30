@@ -4,21 +4,23 @@ from django.contrib.messages import constants as messages
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 root = environ.Path(__file__) - 3
-env = environ.Env()
-environ.Env.read_env(root.file(".env"))
+
+# env config for dev.
+# env = environ.Env()
+# environ.Env.read_env(root.file(".env"))
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env.str("SECRET_KEY")
+# SECRET_KEY = env.str("SECRET_KEY")
 
-DEBUG = env.bool("DEBUG", default=False)
-TEMPLATE_DEBUG = DEBUG
+# DEBUG = env.bool("DEBUG", default=False)
+# TEMPLATE_DEBUG = DEBUG
 
-DATABASES = {"default": env.db("DATABASE_URL")}
-
-ALLOWED_HOSTS = ["https://ml-app1010.herokuapp.com/", ".herokuapp.com"]
+# DATABASES = {"default": env.db("DATABASE_URL")}
 
 # Configuration for CORS behavior
-CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS")
+# CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS")
+
+ALLOWED_HOSTS = ["https://ml-app1010.herokuapp.com/", ".herokuapp.com"]
 
 # Application definition
 
