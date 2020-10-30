@@ -13,7 +13,8 @@ SECRET_KEY = env.str("SECRET_KEY")
 
 DEBUG = env.bool("DEBUG", default=False)
 TEMPLATE_DEBUG = DEBUG
-# DATABASES = {"default": env.db("SQLITE_URL")}
+
+DATABASES = {"default": env.db("DATABASE_URL")}
 
 ALLOWED_HOSTS = []
 
@@ -80,12 +81,12 @@ WSGI_APPLICATION = "base_site.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+#     }
+# }
 
 
 # Password validation
