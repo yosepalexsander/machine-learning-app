@@ -22,7 +22,7 @@ DATABASES = {"default": env.db("DATABASE_URL")}
 # Configuration for CORS behavior
 CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS")
 
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"])
 
 # Application definition
 
@@ -42,9 +42,9 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "corsheaders.middleware.CorsMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -133,9 +133,10 @@ MEDIA_URL = "/media/"
 STATIC_ROOT = root("staticfiles")
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [PUBLIC_DIR("static")]
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# django.contrib.staticfiles.storage.StaticFilesStorage
 
-# message tags
+# message tags theme
 MESSAGE_TAGS = {
     messages.DEBUG: "alert alert-secondary",
     messages.INFO: "alert alert-info",

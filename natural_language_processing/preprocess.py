@@ -20,16 +20,8 @@ def clean_text(text):
     """
 
     text = text.lower()
-    text = text.translate(translation_table)
-    text = re.sub(r"[^\x00-\x7F]+", "", text)  # remove non-ascii
+    text = text.translate(translation_table)  # remove non-ascii
     text = re.sub(r"\d+", "", text)
-    # tokenize = word_tokenize(text)
-    # filtered_token = [
-    #     lemmatizer.lemmatize(word)
-    #     for word in tokenize
-    #     if word not in set(stopwords.words("english"))
-    # ]
-    # text = " ".join(filtered_token)
 
     return text
 
@@ -52,7 +44,6 @@ def predict(data):
     try:
         model = load_model(MODEL_PATH)
         vectorizer = load_tokenizer(VECTORIZER_PATH)
-
         cleaned_data = clean_text(data)
         sequences = vectorizer.transform([cleaned_data])
         predict_result = model.predict(sequences)[0]
