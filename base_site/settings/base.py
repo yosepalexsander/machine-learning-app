@@ -52,12 +52,16 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+
 REST_FRAMEWORK = {
     "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],
     "DEFAULT_PARSER_CLASSES": [
         "rest_framework.parsers.JSONParser",
     ],
 }
+
+# Whitenoise manifest strict to prevent ValueError manifest entry
+WHITENOISE_MANIFEST_STRICT = False
 
 ROOT_URLCONF = "base_site.urls"
 
@@ -78,17 +82,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "base_site.wsgi.application"
-
-
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-#     }
-# }
 
 
 # Password validation
@@ -130,7 +123,7 @@ USE_TZ = True
 PUBLIC_DIR = root.path("public")
 MEDIA_ROOT = PUBLIC_DIR("media")
 MEDIA_URL = "/media/"
-STATIC_ROOT = root("staticfiles")
+STATIC_ROOT = root.path("staticfiles")
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [PUBLIC_DIR("static")]
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
