@@ -3,4 +3,4 @@ This repository aims to apply machine learning models to web application with dj
 
 app urls: https://ml-app1010.herokuapp.com
 
-![sample](https://github.com/yosepalexsander/machine-learning-app/tree/main/screenshot/sample.PNG?raw=true "Apps Sample")
+![sample](https://user-images.githubusercontent.com/56467203/97965144-7eb1c900-1dec-11eb-9a75-c0b166fa3655.PNG)
