@@ -10,9 +10,13 @@ div#content {
 }
 
 /* style for nlp sentiment analysis  */
-div.review-form {
+div.nlp-main {
   width: 70%;
   float: left;
+}
+
+.messages {
+  margin-top: 15px;
 }
 
 aside {
@@ -24,7 +28,7 @@ aside {
 }
 
 @media screen and (max-width: 576px) {
-  div.review-form,
+  div.nlp-main,
   aside {
       width: 100%;
       padding: 20px;
