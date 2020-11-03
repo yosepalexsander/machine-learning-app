@@ -1,44 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% load static %}
 
-<head>
-  {% load static %}
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="machine learning app">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  {% load bootstrap4 %}
-  {% bootstrap_css  %}
-  {% bootstrap_javascript jquery='full' %}
-  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-  <title>{% block title %}Machine Learning App {% endblock %}</title>
-</head>
-
-<body>
-  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">ML-Web</a>
-    <button class=" navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="/">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/about">About Me</a>
-        </li>
-        </li>
-      </ul>
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-4">
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="{% static 'img/nlp.png' %}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Sentiment Analysis</h5>
+        <p class="card-text">Natural Language Processing application to predict customer sentiment based on their review
+        </p>
+        <a href="/nlp/sentiment-analysis" class="btn btn-primary">Application</a>
+      </div>
     </div>
-  </nav>
-
-  <div id="content" class="container-lg">
-    {% block content %}
-    Fallback
-    {% endblock %}
   </div>
-</body>
+</div>
 
-</html>
+{% endblock %}
