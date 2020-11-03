@@ -120,12 +120,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-PUBLIC_DIR = root.path("public")
-MEDIA_ROOT = PUBLIC_DIR("media")
+MEDIA_ROOT = root("media")
 MEDIA_URL = "/media/"
 STATIC_ROOT = root("staticfiles")
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [PUBLIC_DIR("static")]
+STATICFILES_DIRS = [root("static")]
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # django.contrib.staticfiles.storage.StaticFilesStorage
 
