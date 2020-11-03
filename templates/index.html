@@ -3,8 +3,8 @@
 
 {% block content %}
 <div class="row justify-content-center">
-  <div class="col-4">
-    <div class="card" style="width: 18rem;">
+  <div class="col-sm-6">
+    <div class="card">
       <img class="card-img-top" src="{% static 'img/nlp.png' %}" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">Sentiment Analysis</h5>
@@ -14,6 +14,18 @@
       </div>
     </div>
   </div>
+  <!-- <div class="col-sm">
+    <div class="card">
+      <img class="card-img-top" src="{% static 'img/nlp.png' %}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Sentiment Analysis</h5>
+        <p class="card-text">Natural Language Processing application to predict customer sentiment based on their review
+        </p>
+        <a href="/nlp/sentiment-analysis" class="btn btn-primary">Application</a>
+      </div>
+    </div>
+  </div> -->
+
 </div>
 
 {% endblock %}
