@@ -1,16 +1,15 @@
 import string
 import re
 import pickle
-from tensorflow.keras.models import load_model
-from tensorflow.keras.preprocessing.sequence import pad_sequences
+from pathlib import Path
 
 # lemmatizer = WordNetLemmatizer()
 translation_table = dict.fromkeys(map(ord, string.punctuation), " ")
 
 # model file path
-
-MODEL_PATH = "nlp_model/sentiment_model.h5"
-TOKENIZER_PATH = "nlp_model/tokenizer.pickle"
+BASE_PATH = Path(__file__).resolve().parent
+MODEL_PATH = Path(BASE_PATH, "nlp_model", "NaiveBayes.pickle")
+VECTORIZER_PATH = Path(BASE_PATH, "nlp_model", "Tfidf.pickle")
 
 
 def clean_text(text):
@@ -37,24 +36,29 @@ def clean_text(text):
 
 def load_tokenizer(file_path):
     with open(file_path, "rb") as handle:
-        tokenizer = pickle.load(handle)
+        vectorizer = pickle.load(handle)
 
-    return tokenizer
+    return vectorizer
+
+
+def load_model(file_path):
+    with open(file_path, "rb") as handle:
+        model = pickle.load(handle)
+
+    return model
 
 
 def predict(data):
     try:
         model = load_model(MODEL_PATH)
-        tokenizer = load_tokenizer(TOKENIZER_PATH)
+        vectorizer = load_tokenizer(VECTORIZER_PATH)
 
         cleaned_data = clean_text(data)
-        sequences = tokenizer.texts_to_sequences([cleaned_data])
-        padded_sequences = pad_sequences(sequences)
-        predict_proba = round(model.predict(padded_sequences)[0][0], 3)
-        result = (predict_proba > 0.5).astype("int32")
-        if result == 1:
-            return ("Positive", predict_proba)
+        sequences = vectorizer.transform([cleaned_data])
+        predict_result = model.predict(sequences)[0]
+        if predict_result == 1:
+            return "Positive"
         else:
-            return ("Negative", predict_proba)
+            return "Negative"
     except ValueError as e:
         return e.args[0]
