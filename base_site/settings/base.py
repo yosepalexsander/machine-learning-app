@@ -62,6 +62,7 @@ REST_FRAMEWORK = {
 
 # Whitenoise manifest strict to prevent ValueError manifest entry
 WHITENOISE_MANIFEST_STRICT = False
+WHITENOISE_MAX_AGE = 60 * 60 * 24 * 365
 
 ROOT_URLCONF = "base_site.urls"
 
