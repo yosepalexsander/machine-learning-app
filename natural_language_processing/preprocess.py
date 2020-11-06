@@ -8,8 +8,8 @@ translation_table = dict.fromkeys(map(ord, string.punctuation), " ")
 
 # model file path
 BASE_PATH = Path(__file__).resolve().parent
-MODEL_PATH = Path(BASE_PATH, "nlp_model", "NaiveBayes.pickle")
-VECTORIZER_PATH = Path(BASE_PATH, "nlp_model", "Tfidf.pickle")
+MODEL_PATH = Path(BASE_PATH, "nlp_model", "svm.pickle")
+VECTORIZER_PATH = Path(BASE_PATH, "nlp_model", "vectorizer.pickle")
 
 
 def clean_text(text):
@@ -23,7 +23,7 @@ def clean_text(text):
     text = text.translate(translation_table)  # remove non-ascii
     text = re.sub(r"\d+", "", text)
 
-    return text
+    return text.strip()
 
 
 def load_tokenizer(file_path):
